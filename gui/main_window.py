@@ -11,6 +11,7 @@ import threading
 class TranslatorApp:
     def __init__(self, root):
         self.root = root
+        self.root.resizable(False, False)
         self.root.title("Gemini Translator")
         self.api_key = load_api_key()
 
@@ -68,26 +69,38 @@ class TranslatorApp:
             messagebox.showinfo("Success", "API key entered successfully!")
 
     def create_widgets(self):
-        # Original Text
-        original_frame = ttk.LabelFrame(self.root, text="Original Text")
-        original_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        self.root.update()
 
-        self.original_text = tk.Text(original_frame, height=6, wrap=tk.WORD)
+        total_width = self.root.winfo_width()
+        total_height = self.root.winfo_height()
+
+        middle_width = 80
+        side_width = (total_width - middle_width) // 2 - 10 -10
+        frame_height = total_height - 70
+
+        self.original_frame = tk.LabelFrame(self.root, text="Original Text")
+        self.original_frame.place(x=10, y=10, width=side_width, height=frame_height)
+
+        self.original_text = tk.Text(self.original_frame, wrap="word",padx=5, pady=5)
         self.original_text.pack(fill="both", expand=True, padx=5, pady=5)
 
-        translate_btn = ttk.Button(self.root, text="Translate", command=self.translate)
-        translate_btn.pack(pady=5)
+        middle_x = 10 + side_width + 10
+        self.middle_frame = tk.Frame(self.root)
+        self.middle_frame.place(x=middle_x, y=frame_height//2, width=middle_width, height=40)
 
-        # Translated Text
-        translated_frame = ttk.LabelFrame(self.root, text="Translated Text")
-        translated_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        self.translate_btn = ttk.Button(self.middle_frame, text="Translate", command=self.translate)
+        self.translate_btn.pack(fill="both", expand=True)
 
-        self.translated_text = tk.Text(translated_frame, height=6, wrap=tk.WORD)
+        translated_x = middle_x + middle_width + 10
+        translated_width = total_width - translated_x - 10
+        self.translated_frame = tk.LabelFrame(self.root, text="Translated Text")
+        self.translated_frame.place(x=translated_x, y=10, width=translated_width, height=frame_height)
+
+        self.translated_text = tk.Text(self.translated_frame, wrap="word", padx=5, pady=5)
         self.translated_text.pack(fill="both", expand=True, padx=5, pady=5)
 
-        # Close Button
-        close_btn = ttk.Button(self.root, text="Close", command=self.on_closing)
-        close_btn.pack(pady=10)
+        self.close_btn = ttk.Button(self.root, text="❌ Close", command=self.on_closing)
+        self.close_btn.place(x=total_width - 90, y=total_height - 50, width=80, height=30)
     
     def translate(self):
         input_text = self.original_text.get("1.0", tk.END).strip()
@@ -143,7 +156,8 @@ class TranslatorApp:
             cursor_x, cursor_y = pyautogui.position()
             for monitor in get_monitors():
                 if monitor.x <= cursor_x < monitor.x + monitor.width and monitor.y <= cursor_y < monitor.y + monitor.height:
-                    win_w, win_h = 500, 600  # kích thước cửa sổ
+                    win_w = self.root.winfo_width()
+                    win_h = self.root.winfo_height()
                     pos_x = monitor.x + (monitor.width - win_w) // 2
                     pos_y = monitor.y + (monitor.height - win_h) // 2
                     self.root.geometry(f"{win_w}x{win_h}+{pos_x}+{pos_y}")

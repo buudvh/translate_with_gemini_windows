@@ -11,11 +11,11 @@ def setup_hotkey(app):
     def hotkey_handler():
         threading.Thread(target=listen_hotkey, args=(app,)).start()
 
-    keyboard.add_hotkey("ctrl+c+v", hotkey_handler)
+    keyboard.add_hotkey("ctrl+c+b", hotkey_handler)
 
 def listen_hotkey(app):
         while True:
-            keyboard.wait("ctrl+c+v")
+            keyboard.wait("ctrl+c+b")
             time.sleep(0.1)  # Chờ clipboard cập nhật
             try:
                 selected_text = pyperclip.paste()

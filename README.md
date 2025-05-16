@@ -1,4 +1,2 @@
 # translate_with_gemini_windows
-Bôi đen text muốn dịch
-Nhấn ctrl + c + v để dịch
-Lần đầu yêu cầu api key của gemini, nhập nó vào để dùng
+python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --add-data "icon.ico;." --add-data "README.md;." --name TranslateGeminiByB app.py
