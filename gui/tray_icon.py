@@ -7,8 +7,8 @@ def create_tray_icon(app):
     image = Image.open(resource_path("icon.ico"))
 
     menu = pystray.Menu(
-        pystray.MenuItem("Mở Gemini Translator", lambda i, x: app.show_window()),
-        pystray.MenuItem("Thoát", lambda i, x: exit_app(app))
+        pystray.MenuItem("Open Gemini Translator", lambda i, x: app.show_window()),
+        pystray.MenuItem("Exit", lambda i, x: exit_app(app))
     )
 
     app.icon = pystray.Icon("GeminiTranslator", image, "Gemini Translator", menu)

@@ -131,7 +131,7 @@ class TranslatorApp:
         self.loading_overlay.attributes("-topmost", True)
         self.loading_overlay.geometry(f"{self.root.winfo_width()}x{self.root.winfo_height()}+{self.root.winfo_rootx()}+{self.root.winfo_rooty()}")
         self.loading_overlay.configure(bg='gray90')
-        tk.Label(self.loading_overlay, text="⏳ Đang dịch...", font=("Meiryo UI", 12, "bold"), bg='gray90').pack(expand=True)
+        tk.Label(self.loading_overlay, text="⏳ Translating...", font=("Meiryo UI", 12, "bold"), bg='gray90').pack(expand=True)
 
     def hide_loading_overlay(self):
         if self.loading_overlay:
