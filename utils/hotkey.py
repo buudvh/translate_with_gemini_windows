@@ -25,9 +25,14 @@ def listen_hotkey(app):
                     app.original_text.delete("1.0", tk.END)
                     app.original_text.insert(tk.END, selected_text)
                     app.show_loading_overlay()
+                    if not app.api_key:
+                        app.hide_loading_overlay()
+                        messagebox.showwarning("Warning", "Please enter your API key.")
+                        app.root.after(0, app.enter_api_key)
+                        return
                     result = translate_with_gemini(selected_text, app.api_key)
                     app.hide_loading_overlay()
                     app.translated_text.delete("1.0", tk.END)
                     app.translated_text.insert(tk.END, result)
             except Exception as e:
-                messagebox.showerror("Lỗi khi lấy clipboard hoặc dịch:", e)
+                messagebox.showerror("Error", f"An error occurred:", e)

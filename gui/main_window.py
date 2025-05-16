@@ -41,15 +41,30 @@ class TranslatorApp:
         self.root.config(menu=menubar)
 
         settings_menu = Menu(menubar, tearoff=0)
-        settings_menu.add_command(label="Nhập API Key", command=self.enter_api_key)
-        menubar.add_cascade(label="⚙ Cài đặt", menu=settings_menu)
+        settings_menu.add_command(label="Enter API Key", command=self.enter_api_key)
+        menubar.add_cascade(label="⚙ Settings", menu=settings_menu)
+
+        helpmenu = Menu(menubar, tearoff=0)
+        helpmenu.add_command(label="Use guide", command=self.show_help)
+        menubar.add_cascade(label="Help", menu=helpmenu)
+
+        self.root.config(menu=menubar)
+    
+    def show_help(self):
+        messagebox.showinfo(
+            "Hướng dẫn sử dụng",
+            "➤ Bấm Ctrl+C+V để dịch nhanh đoạn văn bản đã copy.\n"
+            "➤ Bạn cần nhập API key trước khi sử dụng lần đầu.\n"
+            "➤ Kết quả dịch sẽ hiển thị bên dưới.\n"
+            "➤ Menu này có thể dùng để xem hướng dẫn bất kỳ lúc nào 😎."
+        )
 
     def enter_api_key(self):
-        key = simpledialog.askstring("Nhập API Key", "Dán API Key của Gemini vào đây:", show="*")
+        key = simpledialog.askstring("Enter API Key", "Pass your API key here:", show="*", parent=self.root)
         if key:
             self.api_key = key
             save_api_key(key)
-            messagebox.showinfo("Thành công", "Đã lưu API Key!")
+            messagebox.showinfo("Success", "API key entered successfully!")
 
     def create_widgets(self):
         # Original Text
@@ -76,11 +91,12 @@ class TranslatorApp:
     def translate(self):
         input_text = self.original_text.get("1.0", tk.END).strip()
         if not input_text:
-            messagebox.showwarning("Cảnh báo", "Vui lòng nhập văn bản cần dịch.")
+            messagebox.showwarning("Warning", "Please enter text to translate.")
             return
         
         if not self.api_key:
-            messagebox.showwarning("Cảnh báo", "Vui lòng nhập API Key trước khi dịch.")
+            messagebox.showwarning("Warning", "Please enter your API key.")
+            self.enter_api_key()
             return
         
         self.show_loading_overlay()

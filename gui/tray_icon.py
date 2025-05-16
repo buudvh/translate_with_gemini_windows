@@ -1,11 +1,10 @@
 from PIL import Image, ImageDraw
 import pystray
 import threading
+from utils.common import resource_path
 
 def create_tray_icon(app):
-    image = Image.new('RGB', (64, 64), (0, 120, 215))
-    dc = ImageDraw.Draw(image)
-    dc.ellipse((16, 16, 48, 48), fill=(255, 255, 255))
+    image = Image.open(resource_path("icon.ico"))
 
     menu = pystray.Menu(
         pystray.MenuItem("Mở Gemini Translator", lambda i, x: app.show_window()),
