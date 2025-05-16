@@ -6,6 +6,7 @@ from gui.tray_icon import create_tray_icon
 from utils.hotkey import setup_hotkey
 from screeninfo import get_monitors
 import pyautogui
+import threading
 
 class TranslatorApp:
     def __init__(self, root):
@@ -100,8 +101,18 @@ class TranslatorApp:
             return
         
         self.show_loading_overlay()
-        result = translate_with_gemini(input_text, self.api_key)
-        self.hide_loading_overlay()
+        threading.Thread(target=self._do_translate, args=(input_text,), daemon=True).start()
+
+    def _do_translate(self, input_text):
+        try:
+            result = translate_with_gemini(input_text, self.api_key)
+            self.root.after(0, lambda: self._show_result(result))
+        except Exception as e:
+            self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
+        finally:
+            self.root.after(0, self.hide_loading_overlay)
+
+    def _show_result(self, result):
         self.translated_text.delete("1.0", tk.END)
         self.translated_text.insert(tk.END, result)
 
