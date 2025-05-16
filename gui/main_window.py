@@ -53,7 +53,7 @@ class TranslatorApp:
     def show_help(self):
         messagebox.showinfo(
             "Hướng dẫn sử dụng",
-            "➤ Bấm Ctrl+C+V để dịch nhanh đoạn văn bản đã copy.\n"
+            "➤ Bấm Ctrl+C+V để dịch nhanh đoạn văn bản đã bôi đen.\n"
             "➤ Bạn cần nhập API key trước khi sử dụng lần đầu.\n"
             "➤ Kết quả dịch sẽ hiển thị bên dưới.\n"
             "➤ Menu này có thể dùng để xem hướng dẫn bất kỳ lúc nào 😎."
