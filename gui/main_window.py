@@ -26,7 +26,7 @@ class TranslatorApp:
         self.icon = None
         self.is_tray_active = False
 
-        self.loading_overlay = None
+        self.status_label = None
 
         setup_hotkey(self)
 
@@ -99,9 +99,6 @@ class TranslatorApp:
 
         self.translated_text = tk.Text(self.translated_frame, wrap="word", padx=5, pady=5)
         self.translated_text.pack(fill="both", expand=True, padx=5, pady=5)
-
-        self.close_btn = ttk.Button(self.root, text="❌ Close", command=self.on_closing)
-        self.close_btn.place(x=total_width - 90, y=total_height - 50, width=80, height=30)
     
     def translate(self):
         input_text = self.original_text.get("1.0", tk.END).strip()
@@ -138,19 +135,13 @@ class TranslatorApp:
         self.root.after(0, self.root.focus_force)
 
     def show_loading_overlay(self):
-        if self.loading_overlay:
-            return
-        self.loading_overlay = tk.Toplevel(self.root)
-        self.loading_overlay.overrideredirect(True)
-        self.loading_overlay.attributes("-topmost", True)
-        self.loading_overlay.geometry(f"{self.root.winfo_width()}x{self.root.winfo_height()}+{self.root.winfo_rootx()}+{self.root.winfo_rooty()}")
-        self.loading_overlay.configure(bg='gray90')
-        tk.Label(self.loading_overlay, text="⏳ Translating...", font=("Meiryo UI", 12, "bold"), bg='gray90').pack(expand=True)
+        self.status_label = tk.Label(self.root, text="⏳ Translating...", font=("Meiryo UI", 14, "bold"), fg="gray40")
+        self.status_label.pack(side="bottom", fill="x", pady=(0, 20))
 
     def hide_loading_overlay(self):
-        if self.loading_overlay:
-            self.loading_overlay.destroy()
-            self.loading_overlay = None
+        if self.status_label:
+            self.status_label.destroy()
+            self.status_label = None
 
     def move_window_to_cursor_screen(self):
         try:

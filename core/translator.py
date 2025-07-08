@@ -14,7 +14,13 @@ def translate_with_gemini(text, api_key, retry=0):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
 
     request_body = {
-        "contents": [{"parts": [{"text": create_prompt(text)}]}]
+        "contents": [{"parts": [{"text": create_prompt(text)}]}],
+        "generationConfig": {
+            "temperature": 0.2,
+            "topP": 0.8,
+            "topK": 40,
+            "maxOutputTokens": 8192
+        }
     }
 
     print("🔄 Đang dịch...")
