@@ -38,6 +38,8 @@ def handle_clipboard(app, preloaded_text=None):
         app.show_window()
         app.original_text.delete("1.0", tk.END)
         app.original_text.insert(tk.END, selected_text)
+        app.translated_text.delete("1.0", tk.END)
+        app.translated_text.insert(tk.END, "")
         app.show_loading_overlay()
 
         if not app.api_key:
