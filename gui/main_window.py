@@ -111,6 +111,8 @@ class TranslatorApp:
             self.enter_api_key()
             return
         
+        self.translated_text.delete("1.0", tk.END)
+        self.translated_text.insert(tk.END, "")
         self.show_loading_overlay()
         threading.Thread(target=self._do_translate, args=(input_text,), daemon=True).start()
 
