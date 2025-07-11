@@ -131,8 +131,11 @@ class TranslatorApp:
             self.root.after(0, self.hide_loading_overlay)
 
     def _show_result(self, result):
-        self.translated_text.delete("1.0", tk.END)
-        self.translated_text.insert(tk.END, result)
+        try:
+            self.translated_text.delete("1.0", tk.END)
+            self.translated_text.insert(tk.END, result)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
     def show_window(self):
         self.root.deiconify()
