@@ -26,7 +26,12 @@ class TranslatorApp:
         self.icon = None
         self.is_tray_active = False
 
-        self.status_label = None
+        self.status_label = tk.Label(self.root, text="", font=("Meiryo UI", 14, "bold"), fg="gray40")
+        self.status_label.pack(side="bottom", fill="x", pady=(0, 20))
+        self.spinner_frames = ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛"]
+        self.spinner_index = 0
+        self.loading = False
+        self.loading_dots_index = 0
 
         setup_hotkey(self)
 
@@ -137,13 +142,22 @@ class TranslatorApp:
         self.root.after(0, self.root.focus_force)
 
     def show_loading_overlay(self):
-        self.status_label = tk.Label(self.root, text="⏳ Translating...", font=("Meiryo UI", 14, "bold"), fg="gray40")
-        self.status_label.pack(side="bottom", fill="x", pady=(0, 20))
+        self.loading = True
+        self.animate_spinner()
 
     def hide_loading_overlay(self):
-        if self.status_label:
-            self.status_label.destroy()
-            self.status_label = None
+        self.loading = False
+        self.status_label.config(text="")
+        self.loading_dots_index = 0
+
+    def animate_spinner(self):
+        if self.loading:
+            frame = self.spinner_frames[self.spinner_index % len(self.spinner_frames)]
+            dots = "." * (self.loading_dots_index % 4)
+            self.loading_dots_index += 1
+            self.status_label.config(text=f"{frame} Translating{dots}")
+            self.spinner_index += 1
+            self.root.after(200, self.animate_spinner)  # Đổi frame mỗi 200ms
 
     def move_window_to_cursor_screen(self):
         try:
