@@ -1,0 +1,8 @@
+requests
+pillow
+pystray
+keyboard
+pyperclip
+screeninfo
+pyautogui
+PyInstaller
