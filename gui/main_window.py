@@ -80,7 +80,7 @@ class TranslatorApp:
         total_width = self.root.winfo_width()
         total_height = self.root.winfo_height()
 
-        middle_width = 80
+        middle_width = 100
         side_width = (total_width - middle_width) // 2 - 10 -10
         frame_height = total_height - 70
 
@@ -92,10 +92,13 @@ class TranslatorApp:
 
         middle_x = 10 + side_width + 10
         self.middle_frame = tk.Frame(self.root)
-        self.middle_frame.place(x=middle_x, y=frame_height//2, width=middle_width, height=40)
+        self.middle_frame.place(x=middle_x, y=frame_height//2, width=middle_width, height=60)
 
         self.translate_btn = ttk.Button(self.middle_frame, text="Translate", command=self.translate)
-        self.translate_btn.pack(fill="both", expand=True)
+        self.translate_btn.pack(side="top", fill="x", expand=True, pady=(0,5))
+
+        self.word_analysis_btn = ttk.Button(self.middle_frame, text="Word analysis", command=self.word_analysis)
+        self.word_analysis_btn.pack(side="top", fill="x", expand=True)
 
         translated_x = middle_x + middle_width + 10
         translated_width = total_width - translated_x - 10
@@ -136,6 +139,31 @@ class TranslatorApp:
             self.translated_text.insert(tk.END, result)
         except Exception as e:
             messagebox.showerror("Error", str(e))
+
+    def word_analysis(self):
+        input_text = self.original_text.get("1.0", tk.END).strip()
+        if not input_text:
+            messagebox.showwarning("Warning", "Please enter text to translate.")
+            return
+        
+        if not self.api_key:
+            messagebox.showwarning("Warning", "Please enter your API key.")
+            self.enter_api_key()
+            return
+        
+        self.translated_text.delete("1.0", tk.END)
+        self.translated_text.insert(tk.END, "")
+        self.show_loading_overlay()
+        threading.Thread(target=self._do_word_analysis, args=(input_text,), daemon=True).start()
+
+    def _do_word_analysis(self, input_text):
+        try:
+            result = translate_with_gemini(input_text, self.api_key, "1")
+            self.root.after(0, lambda: self._show_result(result))
+        except Exception as e:
+            self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
+        finally:
+            self.root.after(0, self.hide_loading_overlay)
 
     def show_window(self):
         self.root.deiconify()
