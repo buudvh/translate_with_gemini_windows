@@ -35,6 +35,8 @@ class TranslatorApp:
 
         setup_hotkey(self)
 
+        self.show_help()
+
     def on_closing(self):
         self.hide_window()
         if not self.is_tray_active:
