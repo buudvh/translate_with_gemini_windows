@@ -131,7 +131,8 @@ class TranslatorApp:
             result = translate_with_gemini(input_text, self.api_key)
             self.root.after(0, lambda: self._show_result(result))
         except Exception as e:
-            self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
+            # self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
+            messagebox.showerror("Error", str(e))
         finally:
             self.root.after(0, self.hide_loading_overlay)
 
