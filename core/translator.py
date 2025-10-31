@@ -3,19 +3,23 @@ import json
 
 def create_prompt(text, promptType = "0"):
     if promptType == "0": #TRANSLATE
-        return f"""You are a professional translator specialized in translating Chinese into Vietnamese.
-Your task is to translate the given Chinese text according to the following rules:
+        return f"""You are a professional translator specialized in translating from various foreign languages into Vietnamese.
+
+Your task is to translate the given foreign language text (e.g., English, French, Japanese, etc.) into Vietnamese according to the following rules:
 
 Instructions:
-- Strictly preserve the original context and nuance.
-- Ensure the Vietnamese translation is fluent and natural, as if written by a native speaker.
-- Do not add explanations, notes, or commentary.
-- Maintain a 1:1 preservation of terminology and proper nouns (keep original or transliterate consistently).
 
-Context:
-This translation is for literary text, possibly Xianxia/Fantasy style, so the output should retain the atmosphere, tone, and stylistic elements of the source.
+Strictly preserve the original context and nuance.
 
-Input (Chinese):
+Ensure the Vietnamese translation is fluent and natural, as if written by a native speaker.
+
+Do not add explanations, notes, or commentary.
+
+Maintain a 1:1 preservation of terminology and proper nouns (keep original or transliterate consistently).
+
+Context: This translation is for literary text, possibly Xianxia/Fantasy style (or a similar genre like Wuxia, Sci-Fi, etc., depending on the source), so the output should retain the atmosphere, tone, and stylistic elements of the source.
+
+Input (Foreign Language):
 {text}
 
 Expected Output (Vietnamese):

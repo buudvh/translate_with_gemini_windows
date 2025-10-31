@@ -1,10 +1,10 @@
 # Gemini Translator
 
-A desktop application for translating Chinese text to Vietnamese using Google's Gemini API. The application features a clean GUI interface and system tray support for Windows.
+A desktop application for translating Foreign Language text to Vietnamese using Google's Gemini API. The application features a clean GUI interface and system tray support for Windows.
 
 ## Features
 
-- 🌐 Chinese to Vietnamese translation using Gemini AI
+- 🌐 Foreign Language to Vietnamese translation using Gemini AI
 - 🔍 Word analysis mode for detailed linguistic exploration
 - ⌨️ Convenient hotkey support:
   - `Ctrl + C + B`: Quick translate selected text
@@ -46,7 +46,7 @@ pip install -r requirements.txt
    - Type or paste text into the "Original Text" box and click "Translate"
    - Use hotkeys to translate selected text from any application
 3. Choose between:
-   - Translation mode: Standard Chinese to Vietnamese translation
+   - Translation mode: Standard Foreign Language to Vietnamese translation
    - Word analysis mode: Detailed linguistic analysis of Chinese words/phrases
 
 ## Features in Detail
