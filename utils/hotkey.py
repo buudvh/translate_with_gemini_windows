@@ -6,6 +6,7 @@ from tkinter import messagebox
 import tkinter as tk
 from screeninfo import get_monitors
 from core.translator import translate_with_gemini
+import subprocess
 
 def setup_hotkey(app):
     # type 1: Ctrl+C+B
@@ -49,6 +50,7 @@ def handle_clipboard(app, preloaded_text=None):
             return
 
         result = translate_with_gemini(selected_text, app.api_key)
+        app.copy_to_clipboard(result)
         app.hide_loading_overlay()
         app.translated_text.delete("1.0", tk.END)
         app.translated_text.insert(tk.END, result)

@@ -7,6 +7,7 @@ from utils.hotkey import setup_hotkey
 from screeninfo import get_monitors
 import pyautogui
 import threading
+import subprocess
 
 class TranslatorApp:
     def __init__(self, root):
@@ -126,9 +127,15 @@ class TranslatorApp:
         self.show_loading_overlay()
         threading.Thread(target=self._do_translate, args=(input_text,), daemon=True).start()
 
+    def copy_to_clipboard(self, text):
+        self.root.clipboard_clear()
+        self.root.clipboard_append(text)
+        self.root.update()
+
     def _do_translate(self, input_text):
         try:
             result = translate_with_gemini(input_text, self.api_key)
+            self.copy_to_clipboard(result)
             self.root.after(0, lambda: self._show_result(result))
         except Exception as e:
             # self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
