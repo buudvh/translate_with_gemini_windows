@@ -57,3 +57,4 @@ def handle_clipboard(app, preloaded_text=None):
 
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred:\n{e}")
+        app.hide_loading_overlay()
