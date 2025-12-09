@@ -57,14 +57,21 @@ def translate_with_gemini(text, api_key, promptType = "0"):
         response = requests.post(url, json=request_body, headers={"Content-Type": "application/json"})
 
         if response.status_code != 200:
-            data = json.loads(response.text)
-            raise Exception(f"Lỗi HTTP: {response.status_code}\nMessage: {data["error"]["message"]}")
+            try:
+                data = json.loads(response.text)
+                error_msg = data.get("error", {}).get("message", response.text)
+            except Exception:
+                error_msg = response.text
+            raise Exception(f"Lỗi HTTP: {response.status_code}\nMessage: {error_msg}")
 
         result = response.json()
         print("✅ Kết quả API:", result)
 
         if result and "candidates" in result and len(result["candidates"]) > 0:
-            return result["candidates"][0]["content"]["parts"][0]["text"]
+            try:
+                return result["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception:
+                return None
         else:
             return None
 
