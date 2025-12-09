@@ -72,11 +72,27 @@ pip install -r requirements.txt
 
 ## Building Executable
 
-To create a standalone executable:
+To create a standalone executable with version info and metadata:
 
 ```bash
-python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --add-data "icon.ico;." --add-data "README.md;." --name TranslateGeminiByB app.py
+python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --version-file=file_version_info.txt --add-data "icon.ico;." --add-data "README.md;." --name TranslateGeminiByB app.py
 ```
+
+Or simply run the build script (Windows):
+
+```powershell
+.\build.bat
+```
+
+### What this adds to the exe:
+- **FileVersion**: 1.0.0.0 (visible in file properties)
+- **ProductName**: Gemini Translator
+- **ProductVersion**: 1.0.0
+- **Copyright**: Copyright © 2025 Hoang Buu. All rights reserved.
+- **Description**: Chinese to Vietnamese Translator using Google Gemini API
+- **Company**: Hoang Buu
+
+To customize these values, edit `file_version_info.txt` before building.
 
 ## Project Structure
 
