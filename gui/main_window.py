@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog, ttk, Menu
 from config.config_manager import load_api_key, save_api_key
-from core.translator import translate_with_gemini
+from core.translator import translate_with_Megallm
 from gui.tray_icon import create_tray_icon
 from utils.hotkey import setup_hotkey
 from screeninfo import get_monitors
@@ -13,7 +13,7 @@ class TranslatorApp:
     def __init__(self, root):
         self.root = root
         self.root.resizable(False, False)
-        self.root.title("Gemini Translator")
+        self.root.title("Megallm Translator")
         self.api_key = load_api_key()
 
         self.default_font = ("Meiryo UI", 11)
@@ -134,7 +134,7 @@ class TranslatorApp:
 
     def _do_translate(self, input_text):
         try:
-            result = translate_with_gemini(input_text, self.api_key)
+            result = translate_with_Megallm(input_text, self.api_key)
             self.copy_to_clipboard(result)
             self.root.after(0, lambda: self._show_result(result))
         except Exception as e:
@@ -168,7 +168,7 @@ class TranslatorApp:
 
     def _do_word_analysis(self, input_text):
         try:
-            result = translate_with_gemini(input_text, self.api_key, "1")
+            result = translate_with_Megallm(input_text, self.api_key, "1")
             self.root.after(0, lambda: self._show_result(result))
         except Exception as e:
             self.root.after(0, lambda: messagebox.showerror("Error", str(e)))

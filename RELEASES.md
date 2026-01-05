@@ -3,8 +3,8 @@
 ## Version 1.0.4.0 (December 9, 2025)
 
 ### 🐛 Bug Fixes
-- **AI Model Fix**: Ensured Gemini 2.5 Flash model is properly configured and validated
-  - Model endpoint: `gemini-2.5-flash:generateContent`
+- **AI Model Fix**: Ensured Megallm 2.5 Flash model is properly configured and validated
+  - Model endpoint: `Megallm-2.5-flash:generateContent`
   - This resolves runtime issues with older model versions
 - **Error Handling**: Fixed f-string quote escaping issue in HTTP error handling
   - Properly handles malformed or unexpected API responses
@@ -16,7 +16,7 @@
 - Better fallback handling when required fields are missing
 
 ### 📝 What Changed
-- ✅ Updated `core/translator.py` — Fixed error handling and ensured Gemini 2.5 compatibility
+- ✅ Updated `core/translator.py` — Fixed error handling and ensured Megallm 2.5 compatibility
 
 ---
 
@@ -25,7 +25,7 @@
 ### ✨ New Features
 - **Version metadata embedding**: Executable now includes proper file version, product name, product version, and copyright information
   - FileVersion: 1.0.3.0
-  - ProductName: Gemini Translator
+  - ProductName: Megallm Translator
   - ProductVersion: 1.0.3.0
   - Copyright: © 2025 Hoang Buu. All rights reserved.
   - These values are visible in Windows file properties (Right-click exe > Properties > Details)
@@ -44,7 +44,7 @@ Simply run the new build script:
 
 Or manually use PyInstaller with the version file:
 ```bash
-python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --version-file=file_version_info.txt --add-data "icon.ico;." --add-data "README.md;." --name TranslateGeminiByB app.py
+python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --version-file=file_version_info.txt --add-data "icon.ico;." --add-data "README.md;." --name TranslateMegallmByB app.py
 ```
 
 ### 📝 Files Changed
@@ -69,7 +69,7 @@ To customize the version information for your builds:
 ## Version 1.0.0 (Initial Release)
 
 ### Features
-- Chinese to Vietnamese translation using Google's Gemini AI
+- Chinese to Vietnamese translation using Google's Megallm AI
 - Word analysis mode for detailed linguistic exploration
 - Global hotkey support (Ctrl+C+B and Ctrl+C then Alt+C)
 - System tray integration

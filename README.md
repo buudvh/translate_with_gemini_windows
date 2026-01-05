@@ -1,10 +1,10 @@
-# Gemini Translator
+# Megallm Translator
 
-A desktop application for translating Foreign Language text to Vietnamese using Google's Gemini API. The application features a clean GUI interface and system tray support for Windows.
+A desktop application for translating Foreign Language text to Vietnamese using Google's Megallm API. The application features a clean GUI interface and system tray support for Windows.
 
 ## Features
 
-- 🌐 Foreign Language to Vietnamese translation using Gemini AI
+- 🌐 Foreign Language to Vietnamese translation using Megallm AI
 - 🔍 Word analysis mode for detailed linguistic exploration
 - ⌨️ Convenient hotkey support:
   - `Ctrl + C + B`: Quick translate selected text
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-1. Get your Gemini API key from Google
+1. Get your Megallm API key from Google
 2. On first launch, enter your API key in Settings ⚙️ > Enter API Key
 3. The API key will be saved in `config.json` for future use
 
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 To create a standalone executable with version info and metadata:
 
 ```bash
-python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --version-file=file_version_info.txt --add-data "icon.ico;." --add-data "README.md;." --name TranslateGeminiByB app.py
+python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --version-file=file_version_info.txt --add-data "icon.ico;." --add-data "README.md;." --name TranslateMegallm app.py
 ```
 
 Or simply run the build script (Windows):
@@ -86,10 +86,10 @@ Or simply run the build script (Windows):
 
 ### What this adds to the exe:
 - **FileVersion**: 1.0.0.0 (visible in file properties)
-- **ProductName**: Gemini Translator
+- **ProductName**: Megallm Translator
 - **ProductVersion**: 1.0.0
 - **Copyright**: Copyright © 2025 Hoang Buu. All rights reserved.
-- **Description**: Chinese to Vietnamese Translator using Google Gemini API
+- **Description**: Translator using Google Megallm API
 - **Company**: Hoang Buu
 
 To customize these values, edit `file_version_info.txt` before building.
@@ -116,4 +116,4 @@ This project is open-source and available for personal and commercial use.
 
 ## Note
 
-This application requires a valid Gemini API key from Google to function. Make sure to keep your API key secure and never share it publicly.
+This application requires a valid Megallm API key from Google to function. Make sure to keep your API key secure and never share it publicly.

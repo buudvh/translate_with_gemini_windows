@@ -5,7 +5,7 @@ import threading
 from tkinter import messagebox
 import tkinter as tk
 from screeninfo import get_monitors
-from core.translator import translate_with_gemini
+from core.translator import translate_with_Megallm
 import subprocess
 
 def setup_hotkey(app):
@@ -49,7 +49,7 @@ def handle_clipboard(app, preloaded_text=None):
             app.root.after(0, app.enter_api_key)
             return
 
-        result = translate_with_gemini(selected_text, app.api_key)
+        result = translate_with_Megallm(selected_text, app.api_key)
         app.copy_to_clipboard(result)
         app.hide_loading_overlay()
         app.translated_text.delete("1.0", tk.END)
